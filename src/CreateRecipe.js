@@ -4,23 +4,29 @@ import { Button } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
 
 
-const recipeTitleRegex = RegExp( 
-  /^[A-Za-z]{5,30}$/)
+
+
+
+  const recipeTitleRegex = RegExp( 
+  /^[A-Za-z]{5,30}/)
   
   const ingredientsRegex = RegExp(
   /^[A-Za-z]{3,30}/)
   
+  const ingredientAmountRegex = RegExp (
+    /^[A-Za-z]{3,30}/ )
+
   const methodRegex = RegExp(
-  /^\W*(?:\w+\b\W*){10,400}$$/)
+  /^\W*(?:\w+\b\W*){10,400}/)
   
   const cookTimeRegex = RegExp(
-  /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/)
+  /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]/)
   
   const prepTimeRegex = RegExp(
-  /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]$/)
+  /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]/)
   
-  const PricePerUnitRegex = RegExp(
- /^£?(([1-9]{1,3}(,\\d{3})*(\\.\\d{2})?)|(0\\.[1-9]\\d)|(0\\.0[1-9]))$/)
+  const pricePerUnitRegex = RegExp(
+ /^£?(([1-9]{1,3}(,\\d{3})*(\\.\\d{2})?)|(0\\.[1-9]\\d)|(0\\.0[1-9]))/)
   
   
   const formValid = ({ formErrors, ...rest }) => {
@@ -41,23 +47,28 @@ const recipeTitleRegex = RegExp(
   export default class CreateRecipe extends Component {
     constructor(props) {
       super(props);
-  
+      this.state= {
+      }
+
+    
+    
+
       this.state = {
         recipeName: null,
-        Ingredient: null,
-        IngredientAmount: null,
-        Method: null,
-        CookTime: null,
-        PrepTime: null,
-        PricePerUnit: null,
+        ingredient: null,
+        ingredientAmount: null,
+        recipeMethod: null,
+        cookTime: null,
+        prepTime: null,
+        pricePerUnit: null,
         formErrors: {
           recipeName: "",
-          Ingredient: "",
-          IngredientAmount:"",
-          Method: "",
-          CookTime: "",
-          PrepTime: "",
-          PricePerUnit: ""
+          ingredient: "",
+          ingredientAmount:"",
+          recipeMethod: "",
+          cookTime: "",
+          prepTime: "",
+          pricePerUnit: ""
           
         }
       };
@@ -69,12 +80,12 @@ const recipeTitleRegex = RegExp(
         console.log(`
           --SUBMITTING--
           Recipe Name: ${this.state.recipeName}
-          Ingredient: ${this.state.Ingredient}
-          IngredientAmount: ${this.state.IngredientAmount}
-          Method: ${this.state.method}
+          Ingredient: ${this.state.ingredient}
+          IngredientAmount: ${this.state.ingredientAmount}
+          recipeMethod: ${this.state.recipeMethod}
           CookTime: ${this.state.cookTime}
           PrepTime:${this.state.prepTime}
-          PricePerUnit:${this.state.PricePerUnit}
+          PricePerUnit:${this.state.pricePerUnit}
         `);
       } else {
         console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
@@ -92,31 +103,35 @@ const recipeTitleRegex = RegExp(
           ? ""
             : "Minimum 5 characters, maximum 30 characters required";
           break;
-        case "ingredients":
-          formErrors.ingredients = ingredientsRegex.test(value)
-    ? ""
-            : "Minimum 5 characters, maximum 30 characters required";
+        case "ingredient":
+          formErrors.ingredient = ingredientsRegex.test(value)
+           ? ""
+            : "Minimum 3 characters, maximum 30 characters required";
           break;
-           
-        case "method":
-          formErrors.method = methodRegex.test(value)
+        case "ingredientAmount":
+          formErrors.ingredientAmount = ingredientAmountRegex.test(value)
+           ? ""
+            : "Minimum 3 characters, maximum 30 characters required";
+          break;
+        case "recipeMethod":
+          formErrors.recipeMethod = methodRegex.test(value)
             ? ""
-            : "Minimum 100 words, maximum 400 words required";
+            : "Minimum 10 words, maximum 400 words required";
           break;
         case "cookTime":
           formErrors.cookTime = cookTimeRegex.test(value)
            ? ""
-            : "Minimum 100 words, maximum 400 words required";
+            : "Enter cook time in the format HH:MM";
           break;
     case "prepTime":
           formErrors.prepTime = prepTimeRegex.test(value)
            ? ""
-            : "Minimum 100 words, maximum 400 words required";
+            : "Enter prep time in the format HH:MM";
           break;
     case "pricePerUnit":
-          formErrors.pricePerUnit = PricePerUnitRegex.test(value)
+          formErrors.pricePerUnit = pricePerUnitRegex.test(value)
            ? ""
-            : "Minimum 100 words, maximum 400 words required";
+            : "Enter price per unit in the format £XX.XX ";
           break;
   
         default:
@@ -137,13 +152,13 @@ const recipeTitleRegex = RegExp(
       <Form onSubmit={this.handleSubmit} noValidate>
   <Form.Group controlId="formBasicRecipeName">
   <div className="recipeName">
-              <label htmlFor="Name">Recipe Name</label>
+              <label htmlFor="recipeName">Recipe Name</label>
               <input
                 class= "form-control"
                 className={formErrors.recipeName.length > 0 ? "error" : null}
                 placeholder="Recipe Name"
-                type="name"
-                name="recipe name"
+                type="text"
+                name="recipeName"
                 noValidate
                 onChange={this.handleChange}
               />
@@ -156,25 +171,38 @@ const recipeTitleRegex = RegExp(
           <Row>
             <Col>
               <Form.Group controlId="formBasicIngredientName">
-                <Form.Label>Ingredient Name</Form.Label>
-                <Form.Control type="ingredient name" placeholder="Enter ingredient name i.e sugar" />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group controlId="IngredientAmount">
-              <div className="Quantitiy">
-              <label htmlFor="Amount">Quantitiy</label>
+              <div className="ingredient">
+              <label htmlFor="ingredient">Ingredient</label>
               <input
                 class= "form-control"
-                className={formErrors.IngredientAmount.length > 0 ? "error" : null}
-                placeholder="Ingredient Amount"
-                type="quantity"
-                name="quantity"
+                className={formErrors.ingredient.length > 0 ? "error" : null}
+                placeholder="Ingredient Name"
+                type="text"
+                name="ingredient"
                 noValidate
                 onChange={this.handleChange}
               />
-              {formErrors.IngredientAmount.length > 0 && (
-                <span className="errorMessage">{formErrors.IngredientAmount}</span>
+              {formErrors.ingredient.length > 0 && (
+                <span className="errorMessage">{formErrors.ingredient}</span>
+              )}
+            </div>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="formBasicIngredientAmount">
+              <div className="ingredientAmount">
+              <label htmlFor="ingredientAmount">Quantity</label>
+              <input
+                class= "form-control"
+                className={formErrors.ingredientAmount.length > 0 ? "error" : null}
+                placeholder="Ingredient Amount"
+                type="text"
+                name="ingredientAmount"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.ingredientAmount.length > 0 && (
+                <span className="errorMessage">{formErrors.ingredientAmount}</span>
               )}
             </div>
 
@@ -189,25 +217,77 @@ const recipeTitleRegex = RegExp(
   
   
         <Form.Group controlId="formBasicRecipeMethod">
-          <Form.Label>Method</Form.Label>
-          <Form.Control as="textarea" rows="3" type="Method" placeholder="Enter recipe method" />
-          <small>Max 400 words</small>
+        <div className="recipeMethod">
+              <label htmlFor="recipeMethod">Method</label>
+              <input
+                class= "form-control" as="textarea" rows="3"
+                className={formErrors.recipeMethod.length > 0 ? "error" : null}
+                placeholder="Method"
+                type="text"
+                name="recipeMethod"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.recipeMethod.length > 0 && (
+                <span className="errorMessage">{formErrors.recipeMethod}</span>
+              )}
+            </div>
+            <small>Max 400 words</small>
         </Form.Group>
   
   
         <Form.Group controlId="formBasicRecipeCookTime">
-          <Form.Label>Cook Time</Form.Label>
-          <Form.Control type="Cook Time" placeholder="Enter recipe cook time in HH:MM" />
+        <div className="cookTime">
+              <label htmlFor="cookTime">CookTime</label>
+              <input
+                class= "form-control"
+                className={formErrors.cookTime.length > 0 ? "error" : null}
+                placeholder="Cook TIme"
+                type="text"
+                name="cookTime"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.cookTime.length > 0 && (
+                <span className="errorMessage">{formErrors.cookTime}</span>
+              )}
+            </div>
         </Form.Group>
   
         <Form.Group controlId="formBasicRecipePrepTime">
-          <Form.Label>Prep Time</Form.Label>
-          <Form.Control type="Prep Time" placeholder="Enter recipe prep time in HH:MM" />
+          <div className="prepTime">
+              <label htmlFor="prepTime">PrepTime</label>
+              <input
+                class= "form-control"
+                className={formErrors.prepTime.length > 0 ? "error" : null}
+                placeholder="Prep Time"
+                type="text"
+                name="prepTIme"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.prepTime.length > 0 && (
+                <span className="errorMessage">{formErrors.prepTime}</span>
+              )}
+            </div>
         </Form.Group>
   
-        <Form.Group controlId="formBasicRecipePrepTime">
-          <Form.Label>Price per unit</Form.Label>
-          <Form.Control type="Price per unit" placeholder="Enter price per unit of recipe in £.p" />
+        <Form.Group controlId="formBasicPricePerUnit">
+        <div className="pricePerUnit">
+              <label htmlFor="pricePerUnit">PricePerUnit</label>
+              <input
+                class= "form-control"
+                className={formErrors.pricePerUnit.length > 0 ? "error" : null}
+                placeholder="Price Per Unit"
+                type="text"
+                name="pricePerUnit"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.pricePerUnit.length > 0 && (
+                <span className="errorMessage">{formErrors.pricePerUnit}</span>
+              )}
+            </div>
         </Form.Group>
   
   
