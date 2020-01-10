@@ -7,41 +7,41 @@ import { Row, Col } from 'react-bootstrap';
 
 
 
-      const recipeTitleRegex = RegExp( 
-      /^[A-Za-z]{5,30}/)
+    const recipeTitleRegex = RegExp( 
+    /^[A-Za-z]{5,30}/)
       
-      const ingredientsRegex = RegExp(
+    const ingredientsRegex = RegExp(
       /^[A-Za-z]{3,30}/)
       
-      const ingredientAmountRegex = RegExp (
-        /^[A-Za-z]{3,30}/ )
+    const ingredientAmountRegex = RegExp (
+      /^[A-Za-z]{3,30}/ )
 
-      const methodRegex = RegExp(
-      /^\W*(?:\w+\b\W*){10,400}/)
+    const methodRegex = RegExp(
+    /^\W*(?:\w+\b\W*){10,400}/)
       
-      const cookTimeRegex = RegExp(
-      /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]/)
+    const cookTimeRegex = RegExp(
+    /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]/)
       
-      const prepTimeRegex = RegExp(
-      /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]/)
+    const prepTimeRegex = RegExp(
+    /^(0[0-9]|1[0-9]|2[0-3]|[0-9]):[0-5][0-9]/)
       
-      const pricePerUnitRegex = RegExp(
-      /^£?(([1-9]{1,3}(,\\d{3})*(\\.\\d{2})?)|(0\\.[1-9]\\d)|(0\\.0[1-9]))/)
+    const pricePerUnitRegex = RegExp(
+    /^£?(([1-9]{1,3}(,\\d{3})*(\\.\\d{2})?)|(0\\.[1-9]\\d)|(0\\.0[1-9]))/)
       
   
-      const formValid = ({ formErrors, ...rest }) => {
-        let valid = true;
+    const formValid = ({ formErrors, ...rest }) => {
+      let valid = true;
       
-        Object.values(formErrors).forEach(val => {
-          val.length > 0 && (valid = false);
-        });
+      Object.values(formErrors).forEach(val => {
+        val.length > 0 && (valid = false);
+      });
       
-        Object.values(rest).forEach(val => {
-          val === null && (valid = false);
-        });
+      Object.values(rest).forEach(val => {
+        val === null && (valid = false);
+      });
       
-        return valid;
-      };
+      return valid;
+    };
     
     
     export default class CreateRecipe extends Component {
