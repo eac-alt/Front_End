@@ -1,8 +1,14 @@
 import react from 'react-bootstrap';
 import Button from 'react-bootstrap';
 import {Modal, ModalHeader, ModalTitle, ModalFooter} from 'react-bootstrap';
+import { Component } from 'react';
 
-export function Confirmation() {
+class Confirmation extends Component() {
+
+
+
+
+  
   const [show, setShow] = useState(false);
   
   const handleClose = () => setShow(false);
