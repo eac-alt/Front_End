@@ -23,17 +23,17 @@ export default class MyRecipes extends Component {
       };
 
 
-// componentDidMount() {
-//   axios.get(`${BASE_RECIPE_URL}${GET_RECIPES_URL}`, 
-//       .then(res => {
-//           console.log(res);
-//           this.setState({ ingredients: response.data, recipe });          
+//  componentDidMount() {
+//    axios.get(`${BASE_RECIPE_URL}${GET_RECIPES_URL}`, 
+//        .then(res => {
+//            console.log(res);
+//            this.setState({ ingredients: response.data, recipe });          
 
 
 
 //       })
-//       .catch(err => console.warn(err));
-// }
+//        .catch(err => console.warn(err));
+//  }
   
 
 render() {
