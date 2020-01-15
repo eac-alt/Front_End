@@ -1,12 +1,23 @@
 import React,{Component} from 'react'
 import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
-import axios from 'axios'
-import {BASE_RECIPE_URL,  POST_RECIPE_URL, PATCH_ADDTORECIPE_URL, BASE_INGREDIENT_URL, POST_INGREDIENT_URL } from './components/constants'
-import {formValid, recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, pricePerUnitRegex, }  from './components/constants'
+import axios from 'axios';
+import {BASE_RECIPE_URL,  POST_RECIPE_URL } from './components/constants'
+import { recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, pricePerUnitRegex, }  from './components/constants'
 
-
-
+const formValid = ({ formErrors, ...rest }) => {
+  let valid = true;
+  
+  Object.values(formErrors).forEach(val => {
+    val.length > 0 && (valid = false);
+  });
+  
+  Object.values(rest).forEach(val => {
+    val === null && (valid = false);
+  });
+  
+  return valid;
+};
 
   
   export default class CreateRecipe extends Component {
@@ -24,11 +35,14 @@ import {formValid, recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, 
           recipeMethod: "",
           cookTime: "",
           prepTime: "",
-          pricePerUnit: ""
+          pricePerUnit: "",
+      
           
         }
       };
     }
+
+    
     addIngredient() {
       this.setState({ingredients: [...this.state.ingredients, ""]}
       )
@@ -47,30 +61,20 @@ import {formValid, recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, 
   }
 
 
-  handleSubmit(e){
-      axios.post(`${BASE_INGREDIENT_URL}${POST_INGREDIENT_URL}`, { ingredientName: this.state.ingredientName})
-  .then((res) =>  {  
-      console.log(res);
-  })
-  .catch(err => {
-      console.warn(err);
-      this.setState({ error: err.message })
-    })
-    ;
-  }
-
   handleSubmit = e => {
      e.preventDefault();
 
-    axios.post(`${BASE_RECIPE_URL}${POST_RECIPE_URL}`, { recipeTitle: this.state.recipeTitle, recipeMethod: this.state.recipeMethod,  cookTime: this.state.cookTime, prepTime: this.state.prepTime, pricePerUnit: this.state.pricePerUnit, ingredientName: this.state.ingredientName})
-     .then((res) =>  {  
-         console.log(res);
-     })
+
+     axios.post(`${BASE_RECIPE_URL}${POST_RECIPE_URL}`, { recipeTitle: this.state.recipeTitle, recipeMethod: this.state.recipeMethod,  cookTime: this.state.cookTime, prepTime: this.state.prepTime, pricePerUnit: this.state.pricePerUnit, ingredients: this.state.ingredientId})
+    .then(response => { 
+      this.props.history.push(`MyRecipes/${response.data}`);  
+})
      .catch(err => {
          console.warn(err);
          this.setState({ error: err.message })
        });
 
+  
   if (formValid(this.state)) {
     console.log(`
       --SUBMITTING--
@@ -95,7 +99,7 @@ import {formValid, recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, 
     case "recipeTitle":
       formErrors.recipeTitle = recipeTitleRegex.test(value)
       ? ""
-      : "Minimum 5 characters, maximum 30 characters required";
+      : "Minimum 1 word required and a maximum words is allowed";
       break;
     case "recipeMethod":
       formErrors.recipeMethod = methodRegex.test(value)
@@ -105,7 +109,7 @@ import {formValid, recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, 
     case "cookTime":
       formErrors.cookTime = cookTimeRegex.test(value)
         ? ""
-        : "Enter cook time in the format HH:MM";
+        : "Enter cook time in Hours:Minutes";
       break;
     case "prepTime":
       formErrors.prepTime = prepTimeRegex.test(value)
@@ -142,13 +146,13 @@ import {formValid, recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, 
           <div className="recipeTitle" >
           <label htmlFor="recipeTitle">Recipe Name</label>
           <Form.Control type="text" placeholder="Recipe Name" 
-            className={formErrors.recipeName.length > 0 ? "error" : null}
+            className={formErrors.recipeTitle.length > 0 ? "error" : null}
             name="recipeTitle"
             noValidate
             onChange={this.handleChange}
           />
-          {formErrors.recipeName.length > 0 && (
-            <span className="errorMessage">{formErrors.recipeName}</span>
+          {formErrors.recipeTitle.length > 0 && (
+            <span className="errorMessage">{formErrors.recipeTitle}</span>
           )}
           </div>
         </Form.Group>
@@ -173,7 +177,7 @@ import {formValid, recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, 
         <Form.Group controlId="formBasicRecipeCookTime">
           <div className="cookTime">
           <label htmlFor="cookTime">CookTime</label>
-          <Form.Control type="text" placeholder="Cook Time" 
+          <Form.Control type="text" placeholder="01:30" 
             className={formErrors.cookTime.length > 0 ? "error" : null}
             name="cookTime"
             noValidate
@@ -203,7 +207,7 @@ import {formValid, recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, 
         <Form.Group controlId="formBasicPricePerUnit">
           <div className="pricePerUnit">
           <label htmlFor="pricePerUnit">PricePerUnit</label>
-          <Form.Control type="text" placeholder="Price Per Unit" 
+          <Form.Control type="text" placeholder="Price Per Portion" 
             className={formErrors.pricePerUnit.length > 0 ? "error" : null}
             name="pricePerUnit"
             noValidate
