@@ -19,7 +19,7 @@ class App extends Component {
         <div className="App">     
       </div>
       
-        <Router>
+        <Router basename="/cookbook">
           <NavigationBar />
           <Jumbotron />
           <Layout>
