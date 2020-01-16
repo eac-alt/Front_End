@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
-import { BASE_RECIPE_URL, POST_RECIPE_URL } from './components/constants'
+import { BASE_RECIPE_URL, PUT_RECIPE_URL } from './components/constants'
 import { recipeTitleRegex, methodRegex, cookTimeRegex, prepTimeRegex, pricePerUnitRegex, } from './components/constants'
 
 const formValid = ({ formErrors, ...rest }) => {
@@ -20,7 +20,7 @@ const formValid = ({ formErrors, ...rest }) => {
 };
 
 
-export default class CreateRecipe extends Component {
+export default class EditRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +66,7 @@ export default class CreateRecipe extends Component {
     e.preventDefault();
 
 
-    axios.post(`${BASE_RECIPE_URL}${POST_RECIPE_URL}`, { recipeTitle: this.state.recipeTitle, recipeMethod: this.state.recipeMethod, cookTime: this.state.cookTime, prepTime: this.state.prepTime, pricePerUnit: this.state.pricePerUnit, ingredients: this.state.ingredients })
+    axios.put(`${BASE_RECIPE_URL}${PUT_RECIPE_URL}`, { recipeTitle: this.state.recipeTitle, recipeMethod: this.state.recipeMethod, cookTime: this.state.cookTime, prepTime: this.state.prepTime, pricePerUnit: this.state.pricePerUnit, ingredients: this.state.ingredients })
       .then(response => {
         this.props.history.push(`MyRecipes/${response.data}`);
       })
@@ -136,7 +136,7 @@ export default class CreateRecipe extends Component {
 
 
     const { formErrors } = this.state;
-
+    console.log("hello");
     return (
 
 

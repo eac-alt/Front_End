@@ -1,15 +1,11 @@
  export const GET_RECIPE_URL ="/getAllRecipes";
-// export const GET_INGREDIENT_URL =
-// export const DELETE_RECIPE_URL=
-// export const UPDATE_RECIPE_URL =
-// export const UPDATE_INGREDIENT_URL=
 export const POST_RECIPE_URL = "/createRecipe";
 export const POST_INGREDIENT_URL = "/createIngredient";
 export const BASE_RECIPE_URL = "http://localhost:8080/recipe";
 export const BASE_INGREDIENT_URL = "http://localhost:8080/ingredient";
-export const PATCH_ADDTORECIPE_URL= "/addToRecipe/{recipeId}/{ingredientId}";
 export const GET_RECIPES_URL= "/getAllRecipes";
-export const DELETE_RECIPE_URL= "/deleteRecipe/{id}1"
+export const DELETE_RECIPE_URL= "/deleteRecipe/"
+export const PUT_RECIPE_URL= "/updateRecipe"
 
 
 
