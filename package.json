@@ -1,5 +1,5 @@
 {
-  "homepage": "https://github.com/CookBook/Front_End.git",
+  "homepage": "http://localhost:8080/cookbook/",
   "name": "front-end",
   "version": "0.1.0",
   "private": true,

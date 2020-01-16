@@ -27,8 +27,9 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/CreateRecipe" component={CreateRecipe} />
               <Route path="/MyRecipes" component={MyRecipes} />
-              <Route component={NoMatch} />
               <Route path="/EditRecipe/:id" component={EditRecipe}/>
+              <Route component={NoMatch} />
+              
             </Switch>
           </Layout>
         </Router>
