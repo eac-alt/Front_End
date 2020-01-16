@@ -62,13 +62,13 @@ export default class EditRecipe extends Component {
   }
 
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
 
-    axios.put(`${BASE_RECIPE_URL}${PUT_RECIPE_URL}`, { recipeTitle: this.state.recipeTitle, recipeMethod: this.state.recipeMethod, cookTime: this.state.cookTime, prepTime: this.state.prepTime, pricePerUnit: this.state.pricePerUnit, ingredients: this.state.ingredients })
+    axios.put(`${BASE_RECIPE_URL}${PUT_RECIPE_URL}/${this.props.match.params.id}`, { recipeTitle: this.state.recipeTitle, recipeMethod: this.state.recipeMethod, cookTime: this.state.cookTime, prepTime: this.state.prepTime, pricePerUnit: this.state.pricePerUnit, ingredients: this.state.ingredients })
       .then(response => {
-        this.props.history.push(`MyRecipes/${response.data}`);
+        this.props.history.push(`/MyRecipes`);
       })
       .catch(err => {
         console.warn(err);

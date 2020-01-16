@@ -1,8 +1,8 @@
  export const GET_RECIPE_URL ="/getAllRecipes";
 export const POST_RECIPE_URL = "/createRecipe";
 export const POST_INGREDIENT_URL = "/createIngredient";
-export const BASE_RECIPE_URL = "http://localhost:8080/recipe";
-export const BASE_INGREDIENT_URL = "http://localhost:8080/ingredient";
+export const BASE_RECIPE_URL = "http://localhost:8080/cookbook/recipe";
+export const BASE_INGREDIENT_URL = "http://localhost:8080/cookbook/ingredient";
 export const GET_RECIPES_URL= "/getAllRecipes";
 export const DELETE_RECIPE_URL= "/deleteRecipe/"
 export const PUT_RECIPE_URL= "/updateRecipe"
