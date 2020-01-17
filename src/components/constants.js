@@ -15,7 +15,7 @@ export const PUT_RECIPE_URL= "/updateRecipe"
     /^\W*(?:\w+\b\W*){1,5}/)
   
   export  const methodRegex = RegExp(
-    /^\W*(?:\w+\b\W*){10,1000}/)
+    /^\W*(?:\w+\b\W*){10,800}/)
       
    export const cookTimeRegex = RegExp(
     /^(0[0-9]|[0-9]|2[0-3]|[0-9]):[0-5][0-9]/)

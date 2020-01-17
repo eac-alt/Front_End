@@ -115,7 +115,7 @@ export default class CreateRecipe extends Component {
       case "prepTime":
         formErrors.prepTime = prepTimeRegex.test(value)
           ? ""
-          : "Enter prep time in the format HH:MM";
+          : "EEnter cook time in Hours:Minutes";
         break;
       case "pricePerUnit":
         formErrors.pricePerUnit = pricePerUnitRegex.test(value)
@@ -178,7 +178,7 @@ export default class CreateRecipe extends Component {
         <Form.Group controlId="formBasicRecipeCookTime">
           <div className="cookTime">
             <label htmlFor="cookTime">CookTime</label>
-            <Form.Control type="text" placeholder="01:30"
+            <Form.Control type="text" placeholder="e.g 01:30"
               className={formErrors.cookTime.length > 0 ? "error" : null}
               name="cookTime"
               noValidate
@@ -193,7 +193,7 @@ export default class CreateRecipe extends Component {
         <Form.Group controlId="formBasicRecipePrepTime">
           <div className="prepTime">
             <label htmlFor="prepTime">PrepTime</label>
-            <Form.Control type="text" placeholder="Prep Time"
+            <Form.Control type="text" placeholder="e.g 01:00"
               className={formErrors.prepTime.length > 0 ? "error" : null}
               name="prepTime"
               noValidate
@@ -208,7 +208,7 @@ export default class CreateRecipe extends Component {
         <Form.Group controlId="formBasicPricePerUnit">
           <div className="pricePerUnit">
             <label htmlFor="pricePerUnit">PricePerUnit</label>
-            <Form.Control type="text" placeholder="Price Per Portion"
+            <Form.Control type="text" placeholder="£0.50"
               className={formErrors.pricePerUnit.length > 0 ? "error" : null}
               name="pricePerUnit"
               noValidate
