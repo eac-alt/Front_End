@@ -16,4 +16,4 @@ yarn add react-bootstrap
 npm run build
 
 docker build -t cookbook .
-docker run -d -p1900:80 cookbook
+docker run -d -p 9001:80 --name cookbook cookbook
