@@ -10,10 +10,11 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 
 
 
-sudo apt update && sudo apt install yarn
+sudo apt update && sudo apt install yarn -y
+
 yarn add react-bootstrap
 
 npm run build
 
 docker build -t cookbook .
-docker run -dit --restart unless-stopped -d -p 9001:80 --name cookbook cookbook
+docker run -dit --restart unless-stopped -d -p 80:80 --name cookbook cookbook
